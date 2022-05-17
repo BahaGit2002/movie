@@ -106,25 +106,7 @@
                 <img src="{{ image.image.url }}" class="img-shots-movie" alt="">
             {% endfor %}
         </p>
-        <p class="editContent" style="outline: none; cursor: inherit;">{{ movie.discriptions }}</p>
-        <p class="mt-3 italic-blue editContent"
-           style="outline: none; cursor: inherit;">
-            <iframe width="560" height="315"
-                    src="https://www.youtube.com/embed/A36LahZNUiE?controls=0"
-                    frameborder="0" allow="accelerometer; autoplay;
-                                                           encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-
-            </iframe>
-        </p>
-        <p class="mt-3 editContent" style="outline: none; cursor: inherit;">
-            Человечество дорого заплатило за технический прогресс, поставив под
-            угрозу свое выживание.
-            Пришло время покончить с войной между машинами и людьми.
-            Научно-фантастический боевик,
-            заключительная часть трилогии, перезапускающей франшизу «Терминатора»
-            Джеймса Кэмерона.
-        </p>
+        <p class="editContent" style="outline: none; cursor: inherit;">{{ movie.discriptions|safe }}</p>
     </div>
     <hr>
     <div class="row">
@@ -198,11 +180,10 @@
                            style="outline: none; cursor: inherit;">{{ rew.text }}</p>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
             </div>
-
-            {% endfor %}
         </div>
+     {% endfor %}
     </div>
     </div>
     <script>

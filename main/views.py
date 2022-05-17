@@ -5,7 +5,6 @@ from .models import Movie
 from .forms import ReviewForm
 
 
-
 # def moviesview(request):
 #     movie = Movie.objects.all()
 #     return render(request, 'pages/movie_list.html', context={'movie_list': movie})
@@ -23,13 +22,14 @@ class MovieDetailView(DetailView):
     slug_field = 'url'
     template_name = 'pages/movie_detail.html'
 
-
+#
 # def moviedetailviews(request):
+#     movie = Movie.objects.all()
 #     if request.method == 'GET':
 #         return render(request, 'pages/movie_detail.html', context={
-#             'movie': request.GET['movie']
+#             'movie_detail': movie
 #         })
-#     elif request.method == 'POST':
+
 
 
 class AddReview(View):
