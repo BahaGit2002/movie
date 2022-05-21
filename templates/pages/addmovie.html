@@ -1,0 +1,105 @@
+{% extends 'pages/base.html' %}
+{% block title%} | addmovie{% endblock%}
+{% block content%}
+  <section id="addmovie" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>
+                <i class="fas fa-user-plus"></i> Добавить фильм</h4>
+            </div>
+            <div class="card-body">
+                {% include 'partials/_alerts.html' %}
+                <form action="{% url 'addmovie'%}" method="POST">
+                    {% csrf_token %}
+                  <div class="form-group">
+                  <label for="title">Названия фильма</label>
+                  <input type="text" name="title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="tagline">Слоган</label>
+                  <input type="text" name="tagline" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="discriptions">Описания о фильме</label>
+                  <input type="text" name="discriptions" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="poster">Постер</label>
+                  <input type="file" name="poster" class="form-control" required accept="image/*">
+                </div>
+                <div class="form-group">
+                  <label for="year">Дата выхода</label>
+                  <input type="text" name="year" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="world_premiere">Примьера в мире</label>
+                  <input type="text" name="world_premiere" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="country">Страна</label>
+                  <input type="text" name="country" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <select class="form-control" name="actors">
+                    <option disabled>Выберите актера</option>
+                      {% for i in actors %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select class="form-control" name="directors">
+                    <option disabled>Выберите режиссера</option>
+                      {% for i in actors %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select class="form-control" name="genre">
+                    <option disabled>Выберите жанры</option>
+                      {% for i in genre %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="budget">Бюджет</label>
+                  <input type="text" name="budget" class="form-control" required>
+                </div>
+
+
+                <div class="form-group">
+                  <select class="form-control" name="category">
+                    <option disabled>Выберите категорию</option>
+                      {% for i in category %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                      {% endfor %}
+                  </select>
+
+                </div>
+                <div class="form-group">
+                  <label for="fees_in_world">Сборы в мире</label>
+                  <input type="text" name="fees_in_world" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="fees_in_usa">Сборы в США</label>
+                  <input type="text" name="fees_in_usa" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="url">url</label>
+                  <input type="text" name="url" class="form-control" required>
+                </div>
+                <input type="submit" value="Бобавить фильм" class="btn btn-secondary btn-block">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

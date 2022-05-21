@@ -11,7 +11,7 @@
             <label for="drop" class="toggle">Menu</label>
             <input type="checkbox" id="drop">
             <ul class="menu mt-2">
-                <li class="active"><a href="index.html">Главная</a></li>
+                <li class="active"><a href="/">Главная</a></li>
                 <li>
                     <!-- First Tier Drop Down -->
                     <label for="drop-2" class="toggle">Категории <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
@@ -23,19 +23,26 @@
                         <li><a href="moviesingle.html">Мультфильмы</a></li>
                     </ul>
                 </li>
-                <li><a href="contact.html" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a></li>
+
+                {% if is_authenticatedFalse %}
+                {% csrf_token %}
+                    <li><a href="{% url 'register' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Регистрация</a></li>
+                    <li><a href="{% url 'login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a></li>
+                    <li><a href="{% url 'addmovie' %}" class="mb-4 editContent" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Добавить фильм</a></li>
+                {% else %}
+                    <li><a href="{% url 'dashboard' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">{{ user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выйти</a></li>
+                    <li><a href="{% url 'addmovie' %}" class="mb-4 editContent" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Добавить фильм</a></li>
+
+                {% endif %}
             </ul>
         </nav>
         <!-- //nav -->
     </div>
 </header>
+<div class="banner-info">
+    <p style="text-align: right size: 100px" >Кино поиск</p>
+</div>
 <!-- //header -->
 <!--/banner-->
-<div class="banner-info">
-    <p class="editContent" >лучший сайт на django 3</p>
-    <h3 class="mb-4 editContent">Все о кино</h3>
-    <div class="ban-buttons">
 
-
-    </div>
-</div>
