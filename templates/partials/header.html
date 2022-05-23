@@ -1,5 +1,4 @@
-{% load static %}
-
+{% load movie_tag %}
 <header class="header">
     <div class="container-fluid px-lg-5">
         <!-- nav -->
@@ -18,23 +17,68 @@
                     <a href="#">Категории <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                     <input type="checkbox" id="drop-2">
                     <ul>
-                        <li><a href="moviesingle.html">Фильмы</a></li>
-                        <li><a href="moviesingle.html">Сериалы</a></li>
-                        <li><a href="moviesingle.html">Мультфильмы</a></li>
+                        {% get_categories as categories %}
+                        {% for category in categories %}
+                        <li><a href="/">{{ category.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
-
-                {% if is_authenticatedFalse %}
-                {% csrf_token %}
-                    <li><a href="{% url 'register' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Регистрация</a></li>
-                    <li><a href="{% url 'login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a></li>
-                    <li><a href="{% url 'addmovie' %}" class="mb-4 editContent" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Добавить фильм</a></li>
-                {% else %}
-                    <li><a href="{% url 'dashboard' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">{{ user.username }}</a></li>
-                    <li><a href="{% url 'logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выйти</a></li>
-                    <li><a href="{% url 'addmovie' %}" class="mb-4 editContent" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Добавить фильм</a></li>
-
-                {% endif %}
+                {% if user.is_authenticated %}
+                <li>
+<!--                <li {% if 'dashboard' in request.path %}-->
+<!--                        class="nav-item active mr-3"-->
+<!--                      {% else%}-->
+<!--                        class="nav-item mr-3"-->
+<!--                      {% endif%}>-->
+                    <a class="nav-link" href="{% url 'dashboard' %}">{{user.username}}</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>Выйти
+                    </a>
+                    <form action="{% url 'logout'%}" id="logout" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden">
+                    </form>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'addmovie' %}">
+                        <i class="fas fa-sign-in-alt"></i> Добавить фильм</a>
+                </li>
+            {% else%}
+                <li>
+<!--              <li {% if 'register' in request.path%}-->
+<!--                    class="nav-item active mr-3"-->
+<!--                  {% else%}-->
+<!--                    class="nav-item mr-3"-->
+<!--                  {% endif%}>-->
+                <a class="nav-link" href="{% url 'register' %}">
+                  <i class="fas fa-user-plus"></i> Регистрация</a>
+              </li>
+                <li>
+<!--              <li {% if 'login' in request.path %}-->
+<!--                    class="nav-item active mr-3"-->
+<!--                  {% else%}-->
+<!--                    class="nav-item mr-3"-->
+<!--                  {% endif%}>-->
+                <a class="nav-link" href="{% url 'login' %}">
+                  <i class="fas fa-sign-in-alt"></i> Вход</a>
+              </li>
+              <li class="nav-item mr-3">
+                <a class="nav-link" href="{% url 'addmovie' %}">
+                  <i class="fas fa-sign-in-alt"></i> Добавить фильм</a>
+              </li>
+            {% endif %}
+<!--                {% if user.is_authenticated %}-->
+<!--                    {% csrf_token %}-->
+<!--                    <li><a href="{% url 'register' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Регистрация</a></li>-->
+<!--                    <li><a href="{% url 'login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a></li>-->
+<!--                    <li><a href="{% url 'addmovie' %}" class="mb-4 editContent" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Добавить фильм</a></li>-->
+<!--                {% else %}-->
+<!--                    <li><a href="{% url 'dashboard' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">{{ user.username }}</a></li>-->
+<!--                    <li><a href="{% url 'logout' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выйти</a></li>-->
+<!--                    <li><a href="{% url 'addmovie' %}" class="mb-4 editContent" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Добавить фильм</a></li>-->
+<!--                {% endif %}-->
             </ul>
         </nav>
         <!-- //nav -->
