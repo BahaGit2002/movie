@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 {% include 'partials/_alerts.html' %}
-                <form action="{% url 'addmovie'%}" method="POST">
+                <form action="{% url 'addmovie'%}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                   <div class="form-group">
                   <label for="title">Названия фильма</label>
@@ -27,16 +27,16 @@
                   <input type="text" name="discriptions" class="form-control" required>
                 </div>
                 <div class="form-group">
-                  <label for="poster">Постер</label>
-                  <input type="file" name="poster" class="form-control" required accept="image/*">
+                  <label for="poster_id">Постер</label>
+                  <input id="poster_id" name="poster" type="file" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="year">Дата выхода</label>
-                  <input type="text" name="year" class="form-control" required>
+                  <input type="number" name="year" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="world_premiere">Примьера в мире</label>
-                  <input type="text" name="world_premiere" class="form-control" required>
+                  <input type="date" name="world_premiere" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="country">Страна</label>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="form-group">
-                  <select class="form-control" name="actors">
+                  <select class="form-control" name="actors" multiple>
                     <option disabled>Выберите актера</option>
                       {% for i in actors %}
                     <option value="{{ i.id }}">{{ i.name }}</option>
@@ -52,7 +52,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <select class="form-control" name="directors">
+                  <select class="form-control" name="directors" multiple>
                     <option disabled>Выберите режиссера</option>
                       {% for i in actors %}
                     <option value="{{ i.id }}">{{ i.name }}</option>
@@ -60,7 +60,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <select class="form-control" name="genre">
+                  <select class="form-control" name="genre" multiple>
                     <option disabled>Выберите жанры</option>
                       {% for i in genre %}
                     <option value="{{ i.id }}">{{ i.name }}</option>
