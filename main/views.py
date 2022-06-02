@@ -4,12 +4,8 @@ from django.views.generic import ListView, DetailView
 from .models import Movie, Actor, Genre, Category
 from .forms import ReviewForm
 from django.contrib import messages
-from django.core.files.storage import FileSystemStorage
 
 
-# def moviesview(request):
-#     movie = Movie.objects.all()
-#     return render(request, 'pages/movie_list.html', context={'movie_list': movie})
 class GenreYear:
 
     def get_genres(self):
@@ -25,12 +21,6 @@ class Moviesview(GenreYear, ListView):
     queryset = Movie.objects.filter(draft=False)
     template_name = 'pages/movie_list.html'
 
-
-# class Addmovie(ListView):
-#     '''Список фильмов'''
-#     model = Movie
-#     queryset = Movie.objects.filter(draft=False)
-#     template_name = 'pages/addmovie.html'
 
 class MovieDetailView(GenreYear, DetailView):
     model = Movie
@@ -60,9 +50,14 @@ class AddReview(GenreYear, View):
         return redirect(movie.get_absolute_url())
 
 
-def category(request):
-    if request.method == 'GET':
-        print(request)
+def filtercategory(request, pk):
+    movie = Movie.objects.all()
+    category = Category.objects.get(id=pk)
+    movie = movie.filter(Category=category)
+    print(category)
+    # movie = movie.filter(Category=name)
+    return render(request, 'pages/movie_list.html', {'movie_list': movie})
+    # return redirect('/')
 
 
 def addmovie(request):
@@ -109,8 +104,26 @@ def addmovie(request):
         return redirect('addmovie')
 
 
-class FilterMovieView(GenreYear, ListView):
-    def get_queryset(self):
-        queryset = Movie.objects.filter(year__in=self.request.GET.getlist('year'),)
-        print(queryset)
-        return queryset
+def filteryear(request):
+    if request.method == "GET":
+        movie = Movie.objects.all()
+        year = request.GET.getlist('year')
+        genre = request.GET.getlist('genre')
+        none = []
+        if year == none:
+            movie = movie.filter(genres__in=genre)
+        if genre == none:
+            movie = movie.filter(year__in=year)
+        if year != none and genre != none:
+            movie = movie.filter(year__in=year, genres__in=genre)
+        return render(request, 'pages/movie_list.html', {'movie_list': movie})
+
+
+def moviesearch(request):
+    if request.method == 'GET':
+        name = request.GET.get('search')
+        movie = Movie.objects.all()
+        movie = movie.filter(title=name)
+        print(name, movie)
+        # return redirect('/')
+        return render(request, 'pages/movie_list.html', {'movie_list': movie})

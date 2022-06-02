@@ -1,13 +1,13 @@
 {% load movie_tag %}
 <div class="search-bar w3layouts-newsletter">
     <h3 class="sear-head editContent" >Поиск фильма</h3>
-    <form action="#" method="post" class="d-flex editContent" >
+    <form action="{% url 'moviesearch' %}" method="GET" class="d-flex editContent" >
         <input type="search" placeholder="Введите название..." name="search" class="form-control" required="">
         <button class="btn1 btn" ><span class="fa fa-search" aria-hidden="true" ></span></button>
     </form>
 </div>
 <!--preference -->
-
+<form action="{% url 'filter' %}" method="GET" enctype="multipart/form-data">
     <div class="left-side my-4">
         <h3 class="sear-head editContent" >Жанры</h3>
         <ul class="w3layouts-box-list">
@@ -22,7 +22,6 @@
     </div>
 <!-- // preference -->
 <!-- discounts -->
-<form action="{% url 'filter' %}" method="GET" enctype="multipart/form-data">
     <div class="left-side">
         <h3 class="sear-head editContent" >Год</h3>
         <ul class="w3layouts-box-list">
