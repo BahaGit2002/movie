@@ -123,7 +123,7 @@ def moviesearch(request):
     if request.method == 'GET':
         name = request.GET.get('search')
         movie = Movie.objects.all()
-        movie = movie.filter(title=name)
+        movie = movie.filter(title__icontains=name)
         print(name, movie)
         # return redirect('/')
         return render(request, 'pages/movie_list.html', {'movie_list': movie})
