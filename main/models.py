@@ -57,9 +57,11 @@ class Movie(models.Model):
     poster = models.ImageField('Постер', upload_to='movies/')
     year = models.PositiveSmallIntegerField('Дата выхода', default=2022)
     country = models.CharField('Страна', max_length=30)
+
     directors = models.ManyToManyField(Actor, verbose_name='Режиссер', related_name='film_director', null=True, blank=True)
     actors = models.ManyToManyField(Actor, verbose_name='Актеры', related_name='film_actor', null=True, blank=True)
     genres = models.ManyToManyField(Genre, verbose_name='Жанры', null=True, blank=True)
+
     world_premiere = models.DateField('Примьера в мире', default=date.today)
     budget = models.PositiveIntegerField('Бюджет', default=0, help_text='Указать сумму в долларах')
     fees_in_world = models.PositiveIntegerField('Сборы в мире', default=0, help_text='Указать сумму в долларах')
@@ -125,8 +127,8 @@ class Reviews(models.Model):
     email = models.EmailField()
     name = models.CharField('Имя', max_length=100)
     text = models.TextField('Сообщение', max_length=5000)
-    parent = models.ForeignKey('self', verbose_name='Родитель', on_delete=models.SET_NULL, blank=True, null=True)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name='фильм')
+    parent = models.ForeignKey('self', verbose_name='Родитель', on_delete=models.SET_NULL, blank=True, null=True, related_name='children')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name='фильм', related_name='reviews')
 
     def __str__(self):
         return f'{self.name} = {self.movie}'

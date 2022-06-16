@@ -1,14 +1,10 @@
-from . import views
+from . import api_view
 from django.urls import path
 
 
 urlpatterns = [
-    path('api/', views.Moviesview.as_view()),
-    path('moviesearch/', views.moviesearch, name='moviesearch'),
-    path('category/<int:pk>', views.filtercategory, name='category'),
-    path('addmovie/', views.addmovie, name='addmovie'),
-    path('filter/', views.filteryear, name='filter'),
-    path('<slug:slug>/', views.MovieDetailView.as_view(), name='movie_detail'),
-    path("review/<int:pk>", views.AddReview.as_view(), name='add_review'),
-    path('actor/<str:slug>', views.ActorDetail.as_view(), name='actor_detail'),
+    path('movie/', api_view.Movieview.as_view(), name='api_movie'),
+    path('movie/<int:pk>', api_view.MovieDetailview.as_view()),
+    path('review/', api_view.ReviewCreateView.as_view(), name='api_review'),
+    path('addmovie/', api_view.AddMovieView.as_view(), name='addmovie')
 ]

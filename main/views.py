@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
 from .models import Movie, Actor, Genre, Category
@@ -101,7 +102,7 @@ def addmovie(request):
             new_movie.directors.add(Actor.objects.get(id=int(i)))
         for i in genre_id:
             new_movie.genres.add(Genre.objects.get(id=int(i)))
-        return redirect('addmovie')
+        return redirect(reverse('addmovie'))
 
 
 def filteryear(request):
