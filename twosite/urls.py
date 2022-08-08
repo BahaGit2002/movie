@@ -10,5 +10,7 @@ urlpatterns = [
     path('api_register/', include('accounts.api_urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('accounts.urls')),
-    path('auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth-token/', include('djoser.urls.authtoken')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

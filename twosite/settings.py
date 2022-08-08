@@ -31,6 +31,7 @@ DJOSER = {
 INSTALLED_APPS = [
     'djoser',
     'rest_framework',
+    'rest_framework.authtoken',
     'accounts',
     'main',
     'django.contrib.admin',

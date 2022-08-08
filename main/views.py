@@ -39,13 +39,12 @@ class AddReview(GenreYear, View):
     '''Вывод одзывов'''
     def post(self, request, pk):
         form = ReviewForm(request.POST)
+        # print(request.POST, pk)
         movie = Movie.objects.get(id=pk)
         if form.is_valid():
             form = form.save(commit=False)
-            form.name = request.user.username
-            if request.POST.get("parent", None):
-                print(request.POST.get("parent"))
-                form.parent_id = int(request.POST.get("parent"))
+            # if request.POST.get("parent", None):
+            # form.parent_id = int(request.POST.get("parent"))
             form.movie = movie
             form.save()
         return redirect(movie.get_absolute_url())
