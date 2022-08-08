@@ -58,9 +58,9 @@ class Movie(models.Model):
     year = models.PositiveSmallIntegerField('Дата выхода', default=2022)
     country = models.CharField('Страна', max_length=30)
 
-    directors = models.ManyToManyField(Actor, verbose_name='Режиссер', related_name='film_director', null=True, blank=True)
-    actors = models.ManyToManyField(Actor, verbose_name='Актеры', related_name='film_actor', null=True, blank=True)
-    genres = models.ManyToManyField(Genre, verbose_name='Жанры', null=True, blank=True)
+    directors = models.ManyToManyField(Actor, verbose_name='Режиссер', related_name='film_director', blank=True)
+    actors = models.ManyToManyField(Actor, verbose_name='Актеры', related_name='film_actor', blank=True)
+    genres = models.ManyToManyField(Genre, verbose_name='Жанры', blank=True)
 
     world_premiere = models.DateField('Примьера в мире', default=date.today)
     budget = models.PositiveIntegerField('Бюджет', default=0, help_text='Указать сумму в долларах')
