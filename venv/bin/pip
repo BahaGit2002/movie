@@ -1,4 +1,4 @@
-#!/Users/user/PycharmProjects/my_site/twosite/venv/bin/python
+#!/Users/user/PycharmProjects/my_site/twosite/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
